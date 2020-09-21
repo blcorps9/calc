@@ -43,6 +43,10 @@ let isLastKeyOp = false;
 const inputField = document.querySelector(".text-input");
 inputField.addEventListener("keypress", onKeypress);
 
+/**
+ * Only accept numbers and `.` // 112.343.454
+ * @param {*} e
+ */
 function onKeypress(e) {
   const charCode = e.charCode;
 
@@ -62,7 +66,7 @@ function handleClear() {
 }
 
 function handleNumIp(val) {
-  const match = val.match(/^num-(\d)/);
+  const match = val.match(/^num-(\d)/); // \d => digit
 
   if (match) {
     if (isLastKeyOp) {
@@ -92,9 +96,10 @@ function handleDot() {
 function handleOp(op) {
   if (isLastKeyOp) {
     userInput.pop();
+  } else {
+    userInput.push(inputField.value);
   }
 
-  userInput.push(inputField.value);
   userInput.push(op);
   isLastKeyOp = true;
 }
